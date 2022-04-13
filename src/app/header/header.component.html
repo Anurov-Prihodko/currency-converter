@@ -1,0 +1,9 @@
+<header class="header">
+  <div class="container">
+    <h4>Курс щодо гривні станом на: {{ CURRENT_DATE | date: "dd.MM.yy" }}</h4>
+    <ul class="list">
+      <li>USD: {{ USD | number: "0.0-2" }}</li>
+      <li>EUR: {{ EUR | number: "0.0-2" }}</li>
+    </ul>
+  </div>
+</header>
