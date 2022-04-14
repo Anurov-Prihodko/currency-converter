@@ -1,0 +1,49 @@
+<form [formGroup]="form" (change)="onChange()">
+  <div class="currency-container">
+    <div class="input-group mb-3">
+      <span class="input-group-text">...</span>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="transactionFrom"
+        aria-label="Amount (to the nearest dollar)"
+      />
+    </div>
+    <select
+      class="form-select"
+      formControlName="currencyFrom"
+      aria-label="Default select example"
+    >
+      <option
+        *ngFor="let currencyType of currencyTypes"
+        value="{{ currencyType | lowercase }}"
+      >
+        {{ currencyType }}
+      </option>
+    </select>
+  </div>
+  <div class="currency-container">
+    <div class="input-group mb-3">
+      <span class="input-group-text">$</span>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="transactionTo"
+        aria-label="Amount (to the nearest dollar)"
+      />
+    </div>
+    <select
+      class="form-select"
+      formControlName="currencyTo"
+      aria-label="Default select example"
+    >
+      <option selected>Оберіть валюту для конвертації</option>
+      <option
+        *ngFor="let currencyType of currencyTypes"
+        value="{{ currencyType | lowercase }}"
+      >
+        {{ currencyType }}
+      </option>
+    </select>
+  </div>
+</form>

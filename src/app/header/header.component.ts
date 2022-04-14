@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GetExchangeCurrencyDataService } from 'src/core/api/get-exchange-currency-data.service';
-import { GetExchangeCurrencyData } from '../shared/interfaces/get-exchange-currency-data';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +7,7 @@ import { GetExchangeCurrencyData } from '../shared/interfaces/get-exchange-curre
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  CURRENT_DATE = new Date();
+  CURRENT_DATE: Date = new Date();
   EUR!: number;
   USD!: number;
 
@@ -18,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getExchangeCurrencyDataService
-      .getExchangeCurrencyData()
+      .getCurrentExchangeCurrencyNBU()
       .subscribe((data) => {
         this.EUR = data[32].rate;
         this.USD = data[26].rate;
