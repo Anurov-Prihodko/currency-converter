@@ -1,6 +1,9 @@
 <header class="header">
   <div class="container">
-    <h2>Курс щодо гривні станом на: {{ CURRENT_DATE | date: "dd.MM.yy" }}</h2>
+    <h2>
+      Курс щодо гривні(від НБУ) станом на:
+      {{ CURRENT_DATE | date: "dd.MM.yy" }}
+    </h2>
     <ul class="list">
       <li>USD: {{ USD | number: "0.0-2" }}</li>
       <li>EUR: {{ EUR | number: "0.0-2" }}</li>

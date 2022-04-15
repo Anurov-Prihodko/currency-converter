@@ -1,48 +1,56 @@
-<form [formGroup]="form" (change)="onChange()">
+<h1 class="title">
+  Більш реальна картина щодо курсу валют від "cdn.jsdelivr.net":
+</h1>
+<form [formGroup]="form">
   <div class="currency-container">
     <div class="input-group mb-3">
-      <span class="input-group-text">...</span>
+      <span class="input-group-text">{{ currencyBadgeTop }}</span>
       <input
         type="text"
         class="form-control"
+        autocomplete="off"
+        name="transactionFrom"
         formControlName="transactionFrom"
         aria-label="Amount (to the nearest dollar)"
       />
     </div>
     <select
       class="form-select"
+      name="currencyFrom"
       formControlName="currencyFrom"
       aria-label="Default select example"
     >
       <option
-        *ngFor="let currencyType of currencyTypes"
-        value="{{ currencyType | lowercase }}"
+        *ngFor="let currencyMarker of currencyMarkers"
+        value="{{ currencyMarker.type | lowercase }}"
       >
-        {{ currencyType }}
+        {{ currencyMarker.type }}
       </option>
     </select>
   </div>
   <div class="currency-container">
     <div class="input-group mb-3">
-      <span class="input-group-text">$</span>
+      <span class="input-group-text">{{ currencyBadgeButtom }}</span>
       <input
         type="text"
         class="form-control"
+        autocomplete="off"
+        name="transactionTo"
         formControlName="transactionTo"
         aria-label="Amount (to the nearest dollar)"
       />
     </div>
     <select
       class="form-select"
+      name="currencyTo"
       formControlName="currencyTo"
       aria-label="Default select example"
     >
-      <option selected>Оберіть валюту для конвертації</option>
       <option
-        *ngFor="let currencyType of currencyTypes"
-        value="{{ currencyType | lowercase }}"
+        *ngFor="let currencyMarker of currencyMarkers"
+        value="{{ currencyMarker.type | lowercase }}"
       >
-        {{ currencyType }}
+        {{ currencyMarker.type }}
       </option>
     </select>
   </div>

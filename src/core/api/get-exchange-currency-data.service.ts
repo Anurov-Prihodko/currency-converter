@@ -11,6 +11,8 @@ import { GetConvertCurrency } from 'src/app/shared/interfaces/get-convert-curren
 export class GetExchangeCurrencyDataService {
   private NBU_URL: string =
     'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json';
+  private JSDELIVR_URL =
+    'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/';
 
   constructor(private http: HttpClient) {}
 
@@ -19,11 +21,11 @@ export class GetExchangeCurrencyDataService {
   }
 
   getConvertCurrency(
-    convertTo: string = 'eur',
-    convertFrom: string = 'uah'
-  ): Observable<GetConvertCurrency> {
+    convertFrom: string = 'uah',
+    convertTo: string = 'usd'
+  ): Observable<GetConvertCurrency> | Observable<any> {
     return this.http.get<GetConvertCurrency>(
-      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${convertFrom}/${convertTo}.json`
+      `${this.JSDELIVR_URL}latest/currencies/${convertFrom}/${convertTo}.json`
     );
   }
 }

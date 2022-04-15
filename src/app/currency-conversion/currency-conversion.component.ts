@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { GetExchangeCurrencyDataService } from 'src/core/api/get-exchange-currency-data.service';
-import { GetConvertCurrency } from '../shared/interfaces/get-convert-currency';
+import { AFTER_COMA, INITIAL_VALUE } from '../shared/constants/constants';
+import { Currency } from '../shared/enums/currency';
+import { CurrencyMarkers } from '../shared/interfaces/currency-markers';
 
 @Component({
   selector: 'app-currency-conversion',
@@ -9,32 +11,54 @@ import { GetConvertCurrency } from '../shared/interfaces/get-convert-currency';
   styleUrls: ['./currency-conversion.component.css'],
 })
 export class CurrencyConversionComponent implements OnInit {
-  currencyTypes: string[] = ['UAH', 'USD', 'EUR'];
-  form!: FormGroup;
-  convertedCurrency: GetConvertCurrency = { date: '', usd: 0 };
+  currencyMarkers: CurrencyMarkers[] = [
+    { type: 'UAH', badge: '₴' },
+    { type: 'USD', badge: '$' },
+    { type: 'EUR', badge: '€' },
+  ];
+
+  public form: FormGroup = this.formBuilder.group({
+    transactionFrom: [INITIAL_VALUE],
+    currencyFrom: [Currency.UAH],
+    transactionTo: [],
+    currencyTo: [Currency.USD],
+  });
+
+  currencyBadgeTop: string = this.currencyMarkers[0].badge;
+  currencyBadgeButtom: string = this.currencyMarkers[1].badge;
 
   constructor(
-    private getExchangeCurrencyDataService: GetExchangeCurrencyDataService
+    private getExchangeCurrencyDataService: GetExchangeCurrencyDataService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.getExchangeCurrencyDataService
-      .getConvertCurrency('usd')
+      .getConvertCurrency(Currency.UAH, Currency.USD)
       .subscribe((data) => {
-        this.convertedCurrency.usd = data.usd;
+        this.form
+          .get('transactionTo')
+          ?.setValue(data.usd?.toFixed(AFTER_COMA), { emitEvent: false });
       });
 
-    console.log(this.convertedCurrency.usd);
+    let { transactionFrom, currencyFrom, transactionTo, currencyTo } =
+      this.form.value;
 
-    this.form = new FormGroup({
-      transactionFrom: new FormControl(1),
-      currencyFrom: new FormControl('uah'),
-      transactionTo: new FormControl(this.convertedCurrency.usd),
-      currencyTo: new FormControl('usd'),
-    });
-  }
-
-  onChange() {
-    console.log(this.convertedCurrency.usd);
+    this.form
+      .get('transactionFrom')
+      ?.valueChanges.subscribe((currencyNum: number) => {
+        this.getExchangeCurrencyDataService
+          .getConvertCurrency(currencyFrom, currencyTo)
+          .subscribe((dataFromApi) => {
+            this.form
+              .get('transactionTo')
+              ?.setValue(
+                (dataFromApi[currencyTo] * currencyNum).toFixed(AFTER_COMA),
+                {
+                  emitEvent: false,
+                }
+              );
+          });
+      });
   }
 }
