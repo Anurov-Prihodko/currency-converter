@@ -1,23 +1,27 @@
 <h1 class="title">
-  Більш реальна картина щодо курсу валют від "cdn.jsdelivr.net":
+  Більш реальна картина щодо курсу валют від &nbsp;
+  <a target="blank" href="https://cdn.jsdelivr.net">cdn.jsdelivr.net</a>:
 </h1>
-<form [formGroup]="form">
+
+<form>
   <div class="currency-container">
     <div class="input-group mb-3">
       <span class="input-group-text">{{ currencyBadgeTop }}</span>
       <input
-        type="text"
+        [(ngModel)]="transactionFirstField"
+        (ngModelChange)="formModelChanged(fieldsName.TRANSACTION_FIRST_VALUE)"
+        type="number"
         class="form-control"
         autocomplete="off"
-        name="transactionFrom"
-        formControlName="transactionFrom"
+        [name]="fieldsName.TRANSACTION_FIRST_VALUE"
         aria-label="Amount (to the nearest dollar)"
       />
     </div>
     <select
+      [(ngModel)]="currencyFirstField"
+      (ngModelChange)="formModelChanged(fieldsName.CURRENCY_FIRST_VALUE)"
       class="form-select"
-      name="currencyFrom"
-      formControlName="currencyFrom"
+      [name]="fieldsName.CURRENCY_FIRST_VALUE"
       aria-label="Default select example"
     >
       <option
@@ -32,18 +36,20 @@
     <div class="input-group mb-3">
       <span class="input-group-text">{{ currencyBadgeButtom }}</span>
       <input
-        type="text"
+        [(ngModel)]="transactionSecondField"
+        (ngModelChange)="formModelChanged(fieldsName.TRANSACTION_SECOND_VALUE)"
+        type="number"
         class="form-control"
         autocomplete="off"
-        name="transactionTo"
-        formControlName="transactionTo"
+        [name]="fieldsName.TRANSACTION_SECOND_VALUE"
         aria-label="Amount (to the nearest dollar)"
       />
     </div>
     <select
+      [(ngModel)]="currencySecondField"
+      (ngModelChange)="formModelChanged(fieldsName.CURRENCY_SECOND_VALUE)"
       class="form-select"
-      name="currencyTo"
-      formControlName="currencyTo"
+      [name]="fieldsName.CURRENCY_SECOND_VALUE"
       aria-label="Default select example"
     >
       <option

@@ -1,4 +1,4 @@
-export interface GetConvertCurrency {
+export interface ConvertCurrency {
   date: string;
   eur?: number;
   usd?: number;
