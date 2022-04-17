@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/36de1c0a-4016-4f56-8288-00f25bcc3027/deploy-status)](https://app.netlify.com/sites/dashing-lamington-7e67d8/deploys)
+
 # CurrencyConverter
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.1.
